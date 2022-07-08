@@ -156,8 +156,15 @@ export default function Header() {
               </div>
               <div className="pt-4 pb-3 border-t border-gray-700">
                 <div className="flex items-center px-5">
-                  <div className="flex-shrink-0">
-                    <img alt="" className="h-10 w-10 rounded-full" src={userData.imageUrl} />
+                  <div className="flex-shrink-0 h-10 w-10 relative">
+                    <Image
+                      alt=""
+                      className="rounded-full"
+                      height="100%"
+                      layout="fill"
+                      src={userData.imageUrl || 'https://ui-avatars.com/api/?name=John+Doe'}
+                      width="100%"
+                    />
                   </div>
                   <div className="ml-3">
                     <div className="text-base font-medium leading-none text-white">
