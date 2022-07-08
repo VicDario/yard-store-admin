@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
 import { useAuth } from '@hooks/useAuth';
+import Link from 'next/link';
 
 const navigation = [
   { name: 'Dashboard', href: '#', current: true },
@@ -98,19 +99,21 @@ export default function Header() {
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                       >
-                        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
                           {userNavigation.map(item => (
                             <Menu.Item key={item.name}>
                               {({ active }) => (
-                                <a
-                                  className={classNames(
-                                    active ? 'bg-gray-100' : '',
-                                    'block px-4 py-2 text-sm text-gray-700'
-                                  )}
-                                  href={item.href}
-                                >
-                                  {item.name}
-                                </a>
+                                <Link passHref href={item.href}>
+                                  <a
+                                    className={classNames(
+                                      active ? 'bg-gray-100' : '',
+                                      'block px-4 py-2 text-sm text-gray-700'
+                                    )}
+                                    href="something"
+                                  >
+                                    {item.name}
+                                  </a>
+                                </Link>
                               )}
                             </Menu.Item>
                           ))}
@@ -182,14 +185,14 @@ export default function Header() {
                 </div>
                 <div className="mt-3 px-2 space-y-1">
                   {userNavigation.map(item => (
-                    <Disclosure.Button
-                      key={item.name}
-                      as="a"
-                      className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
-                      href={item.href}
-                    >
-                      {item.name}
-                    </Disclosure.Button>
+                    <Link key={item.name} passHref href={item.href}>
+                      <Disclosure.Button
+                        as="a"
+                        className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+                      >
+                        {item.name}
+                      </Disclosure.Button>
+                    </Link>
                   ))}
                 </div>
               </div>
