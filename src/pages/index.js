@@ -39,8 +39,8 @@ export default function Home() {
                         <span className="sr-only">Workflow</span>
                         <Image
                           alt="Logo"
-                          height={50}
                           className="h-8 w-auto sm:h-10"
+                          height={50}
                           src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
                           width={50}
                         />
