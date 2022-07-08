@@ -5,7 +5,7 @@ import { XCircleIcon } from '@heroicons/react/solid';
 export default function Modal({ open, setOpen, children }) {
   const cancelButtonRef = useRef(null);
   return (
-    <Transition.Root show={open} as={Fragment}>
+    <Transition.Root as={Fragment} show={open}>
       <Dialog
         as="div"
         className="fixed z-10 inset-0 overflow-y-auto"
