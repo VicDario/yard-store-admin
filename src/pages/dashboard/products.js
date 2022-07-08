@@ -1,13 +1,37 @@
-import { Fragment, useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { CheckIcon } from '@heroicons/react/solid';
 import Modal from '@common/Modal';
 import FormProduct from '@components/FormProduct';
+import axios from 'axios';
+import endPoints from '@services/api';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    async function getProducts() {
+      try {
+        const response = await axios.get(endPoints.products.list);
+        setProducts(response.data);
+      } catch (error) {
+        setProducts([]);
+      }
+    }
+    getProducts();
+  }, []);
+
+  function filterImages(image) {
+    try {
+      if (image.includes('https://api.lorem.space/')) return image;
+      else throw new Error();
+    } catch (error) {
+      return 'https://api.lorem.space/image?w=640&h=480&r=1657';
+    }
+  }
+
   return (
     <>
       <div className="lg:flex lg:items-center lg:justify-between">
@@ -79,7 +103,7 @@ export default function Products() {
                               className="h-10 w-10 rounded-full"
                               height={50}
                               layout="responsive"
-                              src={product.images[0]}
+                              src={filterImages(product.images[0])}
                               width={50}
                             />
                           </div>
