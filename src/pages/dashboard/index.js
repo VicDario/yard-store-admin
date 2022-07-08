@@ -60,8 +60,10 @@ export default function Dashboard() {
                             <Image
                               alt={people.name}
                               className="h-10 w-10 rounded-full"
-                              layout="fill"
+                              height={50}
+                              layout="responsive"
                               src={person.image}
+                              width={50}
                             />
                           </div>
                           <div className="ml-4">
