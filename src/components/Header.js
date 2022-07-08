@@ -38,10 +38,8 @@ export default function Header() {
                     <Image
                       alt="Workflow"
                       className="h-8 w-8"
-                      height="100%"
                       layout="fill"
                       src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-                      width="100%"
                     />
                   </div>
                   <div className="hidden md:block">
