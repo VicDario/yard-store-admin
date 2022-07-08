@@ -9,7 +9,6 @@ const PRODUCT_OFFSET = 0;
 
 export default function Dashboard() {
   const products = useFetch(endpoints.products.paginate(PRODUCT_LIMIT, PRODUCT_OFFSET));
-
   const categoryNames = products?.map(product => product.category);
   const categoryCount = categoryNames?.map(category => category.name);
 
@@ -83,7 +82,7 @@ export default function Dashboard() {
                               className="h-10 w-10 rounded-full"
                               height={50}
                               layout="responsive"
-                              src={product.images[0]}
+                              src="https://api.lorem.space/image?w=640&h=480&r=1657"
                               width={50}
                             />
                           </div>
