@@ -1,8 +1,17 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRef } from 'react';
 import { LockClosedIcon } from '@heroicons/react/solid';
+import { useAuth } from '@hooks/useAuth';
 
 export default function LoginPage() {
+  const formRef = useRef(null);
+  const auth = useAuth();
+  const submitHandle = event => {
+    event.preventDefault();
+    const data = Object.fromEntries(new FormData(formRef.current));
+    auth.signIn(data.email, data.password);
+  };
   return (
     <>
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -20,7 +29,7 @@ export default function LoginPage() {
               Sign in to your account
             </h2>
           </div>
-          <form action="#" className="mt-8 space-y-6" method="POST">
+          <form ref={formRef} className="mt-8 space-y-6" onSubmit={submitHandle}>
             <input defaultValue="true" name="remember" type="hidden" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
