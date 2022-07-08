@@ -37,9 +37,12 @@ export default function Home() {
                     <Link href="/">
                       <a>
                         <span className="sr-only">Workflow</span>
-                        <img
+                        <Image
+                          alt="Logo"
+                          height={50}
                           className="h-8 w-auto sm:h-10"
                           src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                          width={50}
                         />
                       </a>
                     </Link>
@@ -53,17 +56,22 @@ export default function Home() {
                 </div>
                 <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8">
                   {navigation.map(item => (
-                    <a
+                    <Link
                       key={item.name}
+                      passHref
                       className="font-medium text-gray-500 hover:text-gray-900"
                       href={item.href}
                     >
-                      {item.name}
-                    </a>
+                      <a href={item.href}>{item.name}</a>
+                    </Link>
                   ))}
-                  <a className="font-medium text-indigo-600 hover:text-indigo-500" href="/login">
-                    Log in
-                  </a>
+                  <Link
+                    passHref
+                    className="font-medium text-indigo-600 hover:text-indigo-500"
+                    href="/login"
+                  >
+                    <a href="/login">Log in</a>
+                  </Link>
                 </div>
               </nav>
             </div>
@@ -84,10 +92,12 @@ export default function Home() {
                 <div className="rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
                   <div className="px-5 pt-4 flex items-center justify-between">
                     <div>
-                      <img
-                        alt=""
+                      <Image
+                        alt="Logo"
                         className="h-8 w-auto"
+                        height={100}
                         src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                        width={100}
                       />
                     </div>
                     <div className="-mr-2">
@@ -99,21 +109,23 @@ export default function Home() {
                   </div>
                   <div className="px-2 pt-2 pb-3 space-y-1">
                     {navigation.map(item => (
-                      <a
+                      <Link
                         key={item.name}
+                        passHref
                         className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
                         href={item.href}
                       >
-                        {item.name}
-                      </a>
+                        <a href={item.href}>{item.name}</a>
+                      </Link>
                     ))}
                   </div>
-                  <a
+                  <Link
+                    passHref
                     className="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100"
                     href="/login"
                   >
-                    Log in
-                  </a>
+                    <a href="/login">Log in</a>
+                  </Link>
                 </div>
               </Popover.Panel>
             </Transition>
@@ -131,20 +143,24 @@ export default function Home() {
               </p>
               <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                 <div className="rounded-md shadow">
-                  <a
-                    className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
-                    href="/login"
-                  >
-                    Get started
-                  </a>
+                  <Link passHref href="/login">
+                    <a
+                      className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
+                      href="/login"
+                    >
+                      Get started
+                    </a>
+                  </Link>
                 </div>
                 <div className="mt-3 sm:mt-0 sm:ml-3">
-                  <a
-                    className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 md:py-4 md:text-lg md:px-10"
-                    href="/login"
-                  >
-                    Live demo
-                  </a>
+                  <Link passHref href="/login">
+                    <a
+                      className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 md:py-4 md:text-lg md:px-10"
+                      href="/login"
+                    >
+                      Live demo
+                    </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -152,10 +168,13 @@ export default function Home() {
         </div>
       </div>
       <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-        <img
-          alt=""
+        <Image
+          alt="People"
           className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
+          height={300}
+          layout="responsive"
           src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80"
+          width={300}
         />
       </div>
     </div>
