@@ -8,8 +8,13 @@ const addProduct = async body => {
       accept: '*/*'
     }
   };
-  const response = await axios.post(endPoints.products.addProducts, body, config);
+  const response = await axios.post(endPoints.products.create, body, config);
   return response.data;
 };
 
-export { addProduct };
+const deleteProduct = async id => {
+  const response = await axios.delete(endPoints.products.delete(id));
+  return response.data;
+};
+
+export { addProduct, deleteProduct };
