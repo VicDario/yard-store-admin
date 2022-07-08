@@ -1,16 +1,30 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRef } from 'react';
+import { useRouter } from 'next/router';
+import { useState, useRef } from 'react';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import { useAuth } from '@hooks/useAuth';
+import Modal from '@common/Modal';
 
 export default function LoginPage() {
   const formRef = useRef(null);
   const auth = useAuth();
+  const router = useRouter();
+  const [errorLogin, setErrorLogin] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const submitHandle = event => {
     event.preventDefault();
+    setErrorLogin(false);
+    setLoading(true);
     const data = Object.fromEntries(new FormData(formRef.current));
-    auth.signIn(data.email, data.password);
+    auth
+      .signIn(data.email, data.password)
+      .then(() => router.push('/dashboard'))
+      .catch(() => {
+        setErrorLogin(true);
+        setLoading(false);
+      });
   };
   return (
     <>
@@ -48,7 +62,7 @@ export default function LoginPage() {
               </div>
               <div>
                 <label className="sr-only" htmlFor="password">
-                  Password
+                  2
                 </label>
                 <input
                   required
@@ -89,6 +103,7 @@ export default function LoginPage() {
             <div>
               <button
                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                disabled={loading}
                 type="submit"
               >
                 <span className="absolute left-0 inset-y-0 flex items-center pl-3">
@@ -101,6 +116,14 @@ export default function LoginPage() {
               </button>
             </div>
           </form>
+          <Modal open={errorLogin} setOpen={setErrorLogin}>
+            <div className="px-4 py-3 text-center text-gray-900">
+              <p>
+                <strong>Error</strong>
+              </p>
+              <p>The email or password you entered is incorrect. Please try again.</p>
+            </div>
+          </Modal>
         </div>
       </div>
     </>
