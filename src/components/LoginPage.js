@@ -1,3 +1,5 @@
+import Image from 'next/image';
+import Link from 'next/link';
 import { LockClosedIcon } from '@heroicons/react/solid';
 
 export default function LoginPage() {
@@ -6,23 +8,26 @@ export default function LoginPage() {
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
-            <img
-              alt="Workflow"
-              className="mx-auto h-12 w-auto"
-              src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-            />
+            <div className="mx-auto h-12 w-auto">
+              <Image
+                alt="Workflow"
+                height="40"
+                src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                width="40"
+              />
+            </div>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
               Sign in to your account
             </h2>
           </div>
-          <Form action="#" className="mt-8 space-y-6" method="POST">
+          <form action="#" className="mt-8 space-y-6" method="POST">
             <input defaultValue="true" name="remember" type="hidden" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
                 <label className="sr-only" htmlFor="email-address">
                   Email address
                 </label>
-                <Field
+                <input
                   required
                   autoComplete="email"
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
@@ -36,7 +41,7 @@ export default function LoginPage() {
                 <label className="sr-only" htmlFor="password">
                   Password
                 </label>
-                <Field
+                <input
                   required
                   autoComplete="current-password"
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
@@ -62,9 +67,13 @@ export default function LoginPage() {
               </div>
 
               <div className="text-sm">
-                <a className="font-medium text-indigo-600 hover:text-indigo-500" href="#">
-                  Forgot your password?
-                </a>
+                <Link
+                  passHref
+                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                  href="/forgot-password"
+                >
+                  <a href="/replace">Forgot your password?</a>
+                </Link>
               </div>
             </div>
 
@@ -82,7 +91,7 @@ export default function LoginPage() {
                 Sign in
               </button>
             </div>
-          </Form>
+          </form>
         </div>
       </div>
     </>
