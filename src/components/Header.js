@@ -1,13 +1,9 @@
 import { Fragment } from 'react';
+import Image from 'next/image';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
+import { useAuth } from '@hooks/useAuth';
 
-const userData = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
-};
 const navigation = [
   { name: 'Dashboard', href: '#', current: true },
   { name: 'Productos', href: '/dashboard/products/', current: false },
@@ -24,6 +20,12 @@ function classNames(...classes) {
 }
 
 export default function Header() {
+  const auth = useAuth();
+  const userData = {
+    name: auth?.user?.name,
+    email: auth?.user?.email,
+    imageUrl: auth?.user?.avatar
+  };
   return (
     <>
       <Disclosure as="nav" className="bg-gray-800">
@@ -32,11 +34,14 @@ export default function Header() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex items-center justify-between h-16">
                 <div className="flex items-center">
-                  <div className="flex-shrink-0">
-                    <img
+                  <div className="flex-shrink-0 h-8 w-8 relative">
+                    <Image
                       alt="Workflow"
                       className="h-8 w-8"
+                      height="100%"
+                      layout="fill"
                       src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+                      width="100%"
                     />
                   </div>
                   <div className="hidden md:block">
@@ -74,7 +79,16 @@ export default function Header() {
                       <div>
                         <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                           <span className="sr-only">Open user menu</span>
-                          <img alt="" className="h-8 w-8 rounded-full" src={userData.imageUrl} />
+                          <div className="h-8 w-8 relative">
+                            <Image
+                              alt={userData.name}
+                              className="rounded-full"
+                              height={40}
+                              layout="responsive"
+                              src={userData.imageUrl || 'https://ui-avatars.com/api/?name=John+Doe'}
+                              width={40}
+                            />
+                          </div>
                         </Menu.Button>
                       </div>
                       <Transition
