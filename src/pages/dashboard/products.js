@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { CheckIcon } from '@heroicons/react/solid';
+import { CheckIcon, XCircleIcon } from '@heroicons/react/solid';
 import Modal from '@common/Modal';
 import FormProduct from '@components/FormProduct';
 import axios from 'axios';
 import endPoints from '@services/api';
+import Alert from '@common/Alert';
+import useAlert from '@hooks/useAlert';
+import { deleteProduct } from '@services/api/product';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
   const [open, setOpen] = useState(false);
+  const [alert, setAlert, toggleAlert] = useAlert();
 
   useEffect(() => {
     async function getProducts() {
@@ -21,7 +25,27 @@ export default function Products() {
       }
     }
     getProducts();
-  }, []);
+  }, [alert]);
+
+  const handleDelete = id => {
+    deleteProduct(id)
+      .then(() => {
+        setAlert({
+          active: true,
+          message: 'Product deleted succesfully',
+          type: 'success',
+          autoClose: true
+        });
+      })
+      .catch(error => {
+        setAlert({
+          active: true,
+          message: error.message,
+          type: 'error',
+          autoClose: false
+        });
+      });
+  };
 
   function filterImages(image) {
     try {
@@ -34,6 +58,7 @@ export default function Products() {
 
   return (
     <>
+      <Alert alert={alert} handleClose={toggleAlert} />
       <div className="lg:flex lg:items-center lg:justify-between">
         <div className="flex-1 min-w-0">
           <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
@@ -130,9 +155,13 @@ export default function Products() {
                         </Link>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <Link passHref className="text-indigo-600 hover:text-indigo-900" href="#">
-                          <a href="replace">Delete</a>
-                        </Link>
+                        <XCircleIcon
+                          aria-hidden="true"
+                          className="flex-shrink-0 h-6 w-6 text-gray-400 cursor-pointer"
+                          onClick={() => {
+                            handleDelete(product.id);
+                          }}
+                        />
                       </td>
                     </tr>
                   ))}
@@ -143,7 +172,7 @@ export default function Products() {
         </div>
       </div>
       <Modal open={open} setOpen={setOpen}>
-        <FormProduct />
+        <FormProduct setAlert={setAlert} setOpen={setOpen} />
       </Modal>
     </>
   );
